@@ -8,6 +8,8 @@ public class CanionController : MonoBehaviour
     [SerializeField] Transform bulletSpawner;
     float rotation;
 
+    public static bool blocking;
+
     void Update()
     {
         rotation += Input.GetAxis("Horizontal") * GameManager.instance._turnSpeed;
@@ -22,15 +24,19 @@ public class CanionController : MonoBehaviour
 
         if (GameManager.instance._shoots > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && !blocking)
             {
                 GameManager.instance._shoots -= 1;
 
                 GameObject temp = Instantiate(bulletPrefab, bulletSpawner.position, transform.rotation);
                 Rigidbody tempRB = temp.GetComponent<Rigidbody>();
+                CameraFollow.target = temp;
+
                 Vector3 shootDirection = transform.rotation.eulerAngles;
                 shootDirection.y = 90 - shootDirection.x;
                 tempRB.velocity = shootDirection.normalized * GameManager.instance._bulletSpeed;
+
+                blocking = true;
             }
         }
     }
