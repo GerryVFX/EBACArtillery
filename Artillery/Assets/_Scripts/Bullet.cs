@@ -9,20 +9,21 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, 6.5f);
+        Destroy(gameObject, 7f);
         myrenderer = GetComponent<MeshRenderer>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        myrenderer.enabled = false;
+        //myrenderer.enabled = false;
 
-            Instantiate(explotionParticles, transform.position, Quaternion.identity);
+        Instantiate(explotionParticles, transform.position, Quaternion.identity);
         
 
         
         if (collision.gameObject.CompareTag("Core"))
         {
+            AudioManager.instance.PlayExposion();
             Destroy(collision.gameObject);
             GameManager.instance.levelWin = true;
         }

@@ -29,6 +29,8 @@ public class CanionController : MonoBehaviour
             {
                 GameManager.instance._shoots -= 1;
 
+                AudioManager.instance.PlayShoot();
+
                 GameObject temp = Instantiate(bulletPrefab, bulletSpawner.position, transform.rotation);
                 Rigidbody tempRB = temp.GetComponent<Rigidbody>();
                 CameraFollow.target = temp;

@@ -18,6 +18,7 @@ public class Bricks : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Bullet"))
         {
+            AudioManager.instance.PlayExposion();
             res -= 1;
         }
     }
