@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-        Destroy(gameObject, 7f);
+        Destroy(gameObject, 3f);
         myrenderer = GetComponent<MeshRenderer>();
     }
 

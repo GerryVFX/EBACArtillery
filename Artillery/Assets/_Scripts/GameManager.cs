@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     public float fxVolume;
 
     //Variables de uso para el player
-    float bulletSpeed = 13f; 
+    float bulletSpeed = 20f; 
     public float _bulletSpeed { get => bulletSpeed; }
 
     float turnSpeed = 1f;
