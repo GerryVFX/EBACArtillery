@@ -6,30 +6,35 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
     public AudioClip[] sounds;
-    [SerializeField]AudioSource audioSource;
+    [SerializeField]AudioSource audioSourceFX;
+    [SerializeField]AudioSource bgGame;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        if (instance == null) instance = this;
         else return;
+
     }
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSourceFX = GetComponent<AudioSource>();
+    }
+
+    private void Update()
+    {
+        audioSourceFX.volume = GameManager.instance.fxVolume;
+        bgGame.volume = GameManager.instance.bgVolume;
     }
 
     public void PlayShoot()
     {
-        audioSource.PlayOneShot(sounds[0]);
+        audioSourceFX.PlayOneShot(sounds[0]);
     }
 
     public void PlayExposion()
     {
-        audioSource.PlayOneShot(sounds[1]);
+        audioSourceFX.PlayOneShot(sounds[1]);
     }
 }
