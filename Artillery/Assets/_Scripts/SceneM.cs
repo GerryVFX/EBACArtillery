@@ -22,47 +22,48 @@ public class SceneM : MonoBehaviour
     {
         SceneManager.LoadScene(1);
         GameManager.instance.inGame = false;
+        GameManager.instance.RecetValues();
     }
 
     public void GoToPlayLV1()
     {
         SceneManager.LoadScene(2);
         GameManager.instance.inGame = true;
-        GameManager.instance.currentLevel = "Level1";
+        GameManager.instance.currentLevel = 0;
     }
 
     public void GoToPlayLV2()
     {
         SceneManager.LoadScene(2);
         GameManager.instance.inGame = true;
-        GameManager.instance.currentLevel = "Level2";
+        GameManager.instance.currentLevel = 1;
     }
 
     public void GoToPlayLV3()
     {
         SceneManager.LoadScene(2);
         GameManager.instance.inGame = true;
-        GameManager.instance.currentLevel = "Level3";
+        GameManager.instance.currentLevel = 2;
     }
 
     public void GoToPlayLV4()
     {
         SceneManager.LoadScene(2);
         GameManager.instance.inGame = true;
-        GameManager.instance.currentLevel = "Level4";
+        GameManager.instance.currentLevel = 3;
     }
 
     public void GoToPlayLV5()
     {
         SceneManager.LoadScene(2);
         GameManager.instance.inGame = true;
-        GameManager.instance.currentLevel = "Level5";
+        GameManager.instance.currentLevel = 4;
     }
 
     public void GoToPlayLV6()
     {
         SceneManager.LoadScene(2);
         GameManager.instance.inGame = true;
-        GameManager.instance.currentLevel = "Level6";
+        GameManager.instance.currentLevel = 5;
     }
 }

@@ -51,7 +51,7 @@ MonoBehaviour:
   unlock4: 0
   unlock5: 0
   unlock6: 0
-  currentLevel: 
+  currentLevel: 0
   inMain: 1
   inGame: 0
   pts1: 0
@@ -60,6 +60,14 @@ MonoBehaviour:
   pts4: 0
   pts5: 0
   pts6: 0
+  levels:
+  - {fileID: 5117511455623413431, guid: 3b35551b45d5a704490d9fa0331109c1, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  targetForWin: 0
   bgVolume: 0
   fxVolume: 0
 --- !u!82 &832652542696839041

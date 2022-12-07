@@ -12,10 +12,13 @@ public class GameManager : MonoBehaviour
 
     public bool unlock2, unlock3, unlock4, unlock5, unlock6; //Para saber que nivel desbloqueamos;
 
-    public string currentLevel;
+    public int currentLevel;
     public bool inMain, inGame;
 
     public int pts1, pts2, pts3, pts4, pts5, pts6;
+
+    [SerializeField] GameObject[] levels;
+    public int targetForWin;
 
     //SoundSettings
 
@@ -25,8 +28,8 @@ public class GameManager : MonoBehaviour
     public float fxVolume;
 
     //Variables de uso para el player
-    float bulletSpeed = 20f; 
-    public float _bulletSpeed { get => bulletSpeed; }
+    float bulletSpeed = 0f; 
+    public float _bulletSpeed { get => bulletSpeed; set => bulletSpeed = value; }
 
     float turnSpeed = 1f;
     public float _turnSpeed { get => turnSpeed; }
@@ -60,10 +63,20 @@ public class GameManager : MonoBehaviour
     {
         if (inGame)
         {
-            mainBGMusic.Pause();
+            mainBGMusic.Stop();
         }
-        else mainBGMusic.UnPause();
+        else
+        {
+            if(mainBGMusic.isPlaying==false)
+            mainBGMusic.Play();
+        }
 
         mainBGMusic.volume = bgVolume;
+    }
+
+    public void RecetValues()
+    {
+        targetForWin = levels[currentLevel].transform.childCount;
+        _shoots = 10;
     }
 }

@@ -11,6 +11,8 @@ public class CanionController : MonoBehaviour
     [SerializeField] Transform bulletSpawner;
     float rotation;
 
+    public float testForce;
+
     public PlayerControls playerControls;
     InputAction aim, force, shoot;
 
@@ -31,7 +33,8 @@ public class CanionController : MonoBehaviour
         force.Enable();
         shoot.Enable();
 
-        shoot.performed += Shooting;
+        
+        shoot.canceled += Shooting;
     }
 
     void Update()
@@ -46,13 +49,25 @@ public class CanionController : MonoBehaviour
         if (rotation > 90) rotation = 90;
         if (rotation < 0) rotation = 0;
 
+        if (shoot.IsPressed())
+        {
+            ChargeForce();
+        }
 
+        testForce = GameManager.instance._bulletSpeed;
+    }
+
+    public void ChargeForce()
+    {
+        GameManager.instance._bulletSpeed += Time.deltaTime*5;
+        if(GameManager.instance._bulletSpeed > 25)
+        {
+            GameManager.instance._bulletSpeed = 0;
+        }
     }
 
     private void Shooting(InputAction.CallbackContext context)
     {
-        GameManager.instance._shoots -= 1;
-
         AudioManager.instance.PlayShoot();
 
         GameObject temp = Instantiate(bulletPrefab, bulletSpawner.position, transform.rotation);
@@ -64,7 +79,7 @@ public class CanionController : MonoBehaviour
         Vector3 particlesDirection = new Vector3(-90 + shootDirection.x, 90, 0);
         GameObject particlesClon = Instantiate(particles, bulletSpawner.position, Quaternion.Euler(particlesDirection), transform);
         tempRB.velocity = shootDirection.normalized * GameManager.instance._bulletSpeed;
-
+        GameManager.instance._bulletSpeed = 0;
         blocking = true;
     }
 }
