@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public bool gameStart, gameFinish, canShoot, firstTime;
+
     //Lógica para Ganar
     public bool levelWin;
 
@@ -59,6 +61,8 @@ public class GameManager : MonoBehaviour
         bgVolume = 0.5f;
         fxVolume = 0.5f;
 
+        firstTime = true;
+        gameFinish = false;
     }
 
     private void Update()

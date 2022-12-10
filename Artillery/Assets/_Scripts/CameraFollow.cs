@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -9,21 +10,32 @@ public class CameraFollow : MonoBehaviour
     public bool isLoock;
     Vector3 destiny;
 
+    PlayerControls input;
+    UIManager uiManager;
+
     //En inspector
     public float smooth = 0.05f;
     public Vector2 limitXY = Vector2.zero;
 
     //Dinámico
     public float camZ;
-
+    public bool returnCannon;
+   
     private void Awake()
     {
+        uiManager = FindObjectOfType<UIManager>();
+
         camZ = transform.position.z;
+
+        input = new PlayerControls();
+        input.Canon.Enable();
+        input.Canon.SecondAction.performed += ctx => Vew();
+        input.Canon.SecondAction.canceled += ctx => VewOff();
     }
 
     private void FixedUpdate()
     {
-        
+        if (returnCannon) StartCoroutine("BackCannon");
 
         if(target == null)
         {
@@ -54,15 +66,28 @@ public class CameraFollow : MonoBehaviour
         destiny.z = camZ;
         transform.position = destiny;
         Camera.main.orthographicSize = destiny.y + 5;
+    }
 
+    IEnumerator BackCannon()
+    {
+        returnCannon = false;
+        yield return new WaitForSeconds(2f);
+        GameManager.instance.canShoot = true;
     }
 
     public void Vew()
     {
-        isLoock = true;
+        if (uiManager.inMenu == false && GameManager.instance.gameStart == true && GameManager.instance.gameFinish == false)
+        {
+            isLoock = true;
+        }
+        
     }
     public void VewOff()
     {
-        isLoock = false;
+        if (uiManager.inMenu == false && GameManager.instance.gameStart == true && GameManager.instance.gameFinish == false)
+        {
+            isLoock = false;
+        }
     }
 }

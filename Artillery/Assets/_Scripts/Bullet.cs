@@ -1,17 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Bullet : MonoBehaviour
 {
-    MeshRenderer myrenderer;
     [SerializeField] GameObject explotionParticles;
+    CameraFollow cam;
+
+    private void Start()
+    {
+        cam = FindObjectOfType<CameraFollow>();
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //myrenderer.enabled = false;
-        Destroy(gameObject);
+        cam.returnCannon = true;
+        Destroy(gameObject, 0.5f);
         GameManager.instance._shoots -= 1;
         Instantiate(explotionParticles, transform.position, Quaternion.identity);
         

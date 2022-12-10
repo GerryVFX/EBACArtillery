@@ -62,6 +62,33 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""7a1e6a13-c118-4a19-b7aa-630d9cfee09e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""f2dc8413-00d8-4d2e-9782-da9fe0fc55dd"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SecondAction"",
+                    ""type"": ""Button"",
+                    ""id"": ""e5f0b73f-22ff-4e8d-a010-080e59727456"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -229,6 +256,72 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""ForceShoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac304e42-7d7d-4c98-b313-a4eab384934f"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91ac48f9-84b6-4dfa-9e5a-a3f6e892103d"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ecfa08cb-9585-4581-a040-9314bdefe158"",
+                    ""path"": ""<XInputController>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0db50aea-477f-4b11-ad8c-99160d50ddf2"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""24ab0a8f-c72b-441b-a84f-b7771ca890ec"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8bc61ed6-45ef-414d-a7ab-2d2ac5e9cea7"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SecondAction"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -279,6 +372,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Canon_Shoot = m_Canon.FindAction("Shoot", throwIfNotFound: true);
         m_Canon_ForceShoot = m_Canon.FindAction("ForceShoot", throwIfNotFound: true);
         m_Canon_Move = m_Canon.FindAction("Move", throwIfNotFound: true);
+        m_Canon_Start = m_Canon.FindAction("Start", throwIfNotFound: true);
+        m_Canon_Menu = m_Canon.FindAction("Menu", throwIfNotFound: true);
+        m_Canon_SecondAction = m_Canon.FindAction("SecondAction", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -342,6 +438,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Canon_Shoot;
     private readonly InputAction m_Canon_ForceShoot;
     private readonly InputAction m_Canon_Move;
+    private readonly InputAction m_Canon_Start;
+    private readonly InputAction m_Canon_Menu;
+    private readonly InputAction m_Canon_SecondAction;
     public struct CanonActions
     {
         private @PlayerControls m_Wrapper;
@@ -350,6 +449,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_Canon_Shoot;
         public InputAction @ForceShoot => m_Wrapper.m_Canon_ForceShoot;
         public InputAction @Move => m_Wrapper.m_Canon_Move;
+        public InputAction @Start => m_Wrapper.m_Canon_Start;
+        public InputAction @Menu => m_Wrapper.m_Canon_Menu;
+        public InputAction @SecondAction => m_Wrapper.m_Canon_SecondAction;
         public InputActionMap Get() { return m_Wrapper.m_Canon; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -371,6 +473,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Move.started -= m_Wrapper.m_CanonActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_CanonActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_CanonActionsCallbackInterface.OnMove;
+                @Start.started -= m_Wrapper.m_CanonActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_CanonActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_CanonActionsCallbackInterface.OnStart;
+                @Menu.started -= m_Wrapper.m_CanonActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_CanonActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_CanonActionsCallbackInterface.OnMenu;
+                @SecondAction.started -= m_Wrapper.m_CanonActionsCallbackInterface.OnSecondAction;
+                @SecondAction.performed -= m_Wrapper.m_CanonActionsCallbackInterface.OnSecondAction;
+                @SecondAction.canceled -= m_Wrapper.m_CanonActionsCallbackInterface.OnSecondAction;
             }
             m_Wrapper.m_CanonActionsCallbackInterface = instance;
             if (instance != null)
@@ -387,6 +498,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
+                @SecondAction.started += instance.OnSecondAction;
+                @SecondAction.performed += instance.OnSecondAction;
+                @SecondAction.canceled += instance.OnSecondAction;
             }
         }
     }
@@ -415,5 +535,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnForceShoot(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
+        void OnSecondAction(InputAction.CallbackContext context);
     }
 }

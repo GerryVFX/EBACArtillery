@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 
@@ -10,9 +11,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text targetText;
     [SerializeField] Image forceIndicator;
     [SerializeField] GameObject[] finishPanel;
+    [SerializeField] GameObject menuPanel;
+    [SerializeField] GameObject tutoPanel;
     [SerializeField] Image stars;
     [SerializeField] Sprite[] starsPoints;
+    [SerializeField] Image bullet;
 
+    public bool inMenu;
+
+    PlayerControls control;
+    SceneM managerScene;
 
     public int targets;
 
@@ -26,12 +34,46 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         GameManager.instance.RecetValues();
+        managerScene = FindObjectOfType<SceneM>();
+
+        control = new PlayerControls();
+        control.Canon.Enable();
+
+        if (GameManager.instance.firstTime) tutoPanel.SetActive(true);
+        StartCoroutine("GameStart"); 
     }
 
 
 
     void Update()
     {
+        if (GameManager.instance.firstTime == true)
+        {
+            if (control.Canon.Start.WasPerformedThisFrame())
+            {
+                PanelTuto();
+            }
+        }
+
+        if (GameManager.instance.canShoot)
+        {
+            bullet.color = Color.white;
+        }
+        else bullet.color = Color.red;
+
+        if (GameManager.instance.gameFinish == true)
+        {
+            if (control.Canon.Start.WasPerformedThisFrame())
+            {
+                managerScene.GoToSelect();
+            }
+        }
+
+        if (!inMenu)
+        {
+            control.Canon.Menu.performed += ctx => OpenMenuPanel();
+        }
+
         stars.sprite = starsPoints[GameManager.instance.stars[GameManager.instance.currentLevel]];
 
         shootsText.text = GameManager.instance._shoots.ToString();
@@ -43,12 +85,50 @@ public class UIManager : MonoBehaviour
             finishPanel[0].SetActive(true);
             finishPanel[1].SetActive(true);
             SetStars();
+            GameManager.instance.gameFinish = true;
         }
         
         if (GameManager.instance._shoots <= 0 && GameManager.instance.targetForWin > 0)
         {
             finishPanel[0].SetActive(true);
             finishPanel[2].SetActive(true);
+            GameManager.instance.gameFinish = true;
+        }
+    }
+
+    public void PanelTuto()
+    {
+        tutoPanel.SetActive(false);
+        GameManager.instance.firstTime = false;
+        GameManager.instance.gameStart = true;
+        GameManager.instance.canShoot = true;
+    }
+
+    public  void OpenMenuPanel()
+    {
+        menuPanel.SetActive(true);
+        inMenu = true;
+    }
+
+    public void ClosePanel()
+    {
+        StartCoroutine("BackFromMenu");
+    }
+
+    IEnumerator BackFromMenu()
+    {
+        menuPanel.SetActive(false);
+        yield return new WaitForSeconds(0.5f);
+        inMenu = false;
+    }
+
+    IEnumerator GameStart()
+    {
+        if(GameManager.instance.firstTime == false)
+        {
+            GameManager.instance.gameStart = true;
+            yield return new WaitForSeconds(0.5f);
+            GameManager.instance.canShoot = true;
         }
     }
 
