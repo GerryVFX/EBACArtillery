@@ -5,10 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneM : MonoBehaviour
 {
-    public void ResetScenen()
+    public void ResetScene()
     {
-        GameManager.instance._shoots = 5;
-        SceneManager.LoadScene(0);
+        if (GameManager.instance.currentLevel == 0) GoToPlayLV1();
+        if (GameManager.instance.currentLevel == 1) GoToPlayLV2();
+        if (GameManager.instance.currentLevel == 2) GoToPlayLV3();
+        if (GameManager.instance.currentLevel == 3) GoToPlayLV4();
+        if (GameManager.instance.currentLevel == 4) GoToPlayLV5();
+        if (GameManager.instance.currentLevel == 5) GoToPlayLV6();
     }
 
     //SceneManager
@@ -22,7 +26,6 @@ public class SceneM : MonoBehaviour
     {
         SceneManager.LoadScene(1);
         GameManager.instance.inGame = false;
-        GameManager.instance.RecetValues();
     }
 
     public void GoToPlayLV1()

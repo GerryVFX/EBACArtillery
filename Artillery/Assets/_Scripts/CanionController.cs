@@ -49,6 +49,7 @@ public class CanionController : MonoBehaviour
         if (rotation > 90) rotation = 90;
         if (rotation < 0) rotation = 0;
 
+
         if (shoot.IsPressed())
         {
             ChargeForce();

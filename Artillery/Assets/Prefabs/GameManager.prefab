@@ -54,20 +54,16 @@ MonoBehaviour:
   currentLevel: 0
   inMain: 1
   inGame: 0
-  pts1: 0
-  pts2: 0
-  pts3: 0
-  pts4: 0
-  pts5: 0
-  pts6: 0
+  pts: 000000000000000000000000000000000000000000000000
   levels:
   - {fileID: 5117511455623413431, guid: 3b35551b45d5a704490d9fa0331109c1, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 7914086128044938561, guid: b9f87aa9722920541a9c55c9f36e0178, type: 3}
+  - {fileID: 5082514515282472490, guid: 6804b5eb83aed2b449c717b3faefb9e1, type: 3}
+  - {fileID: 7157221178352137648, guid: 1b2958bee6fe92e40bfd45e30387386d, type: 3}
+  - {fileID: 8504617719451358685, guid: fb51a4c8ffc84ee42b9420cc75443422, type: 3}
+  - {fileID: 132009772453417504, guid: 3fa0fad94a032fc43aac82a093500449, type: 3}
   targetForWin: 0
+  stars: 000000000000000000000000000000000000000000000000
   bgVolume: 0
   fxVolume: 0
 --- !u!82 &832652542696839041

@@ -15,8 +15,6 @@ public class Bullet : MonoBehaviour
         GameManager.instance._shoots -= 1;
         Instantiate(explotionParticles, transform.position, Quaternion.identity);
         
-
-        
         if (collision.gameObject.CompareTag("Core"))
         {
             GameManager.instance.targetForWin -= 1;

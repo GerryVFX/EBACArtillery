@@ -14,10 +14,13 @@ public class GameManager : MonoBehaviour
     public int currentLevel;
     public bool inMain, inGame;
 
-    public int pts1, pts2, pts3, pts4, pts5, pts6;
+    public int[] pts;
+    public int totalPoints;
 
-    [SerializeField] GameObject[] levels;
+    public GameObject[] levels;
     public int targetForWin;
+
+    public int[] stars;
 
     //SoundSettings
 
@@ -69,6 +72,10 @@ public class GameManager : MonoBehaviour
             if(mainBGMusic.isPlaying==false)
             mainBGMusic.Play();
         }
+
+        if (stars[currentLevel] > pts[currentLevel]) pts[currentLevel] = stars[currentLevel];
+        totalPoints = pts[0] + pts[1] + pts[2] + pts[3] + pts[4] + pts[5];
+
 
         mainBGMusic.volume = bgVolume;
     }
