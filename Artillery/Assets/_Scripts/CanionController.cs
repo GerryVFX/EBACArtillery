@@ -80,22 +80,23 @@ public class CanionController : MonoBehaviour
     {
         if(uiManager.inMenu == false && GameManager.instance.gameStart == true && GameManager.instance.gameFinish == false)
         {
-            
-            GameManager.instance.canShoot = false;
-            AudioManager.instance.PlayShoot();
-            
-            GameObject temp = Instantiate(bulletPrefab, bulletSpawner.position, transform.rotation);
-            Rigidbody tempRB = temp.GetComponent<Rigidbody>();
-            CameraFollow.target = temp;
-            
-            Vector3 shootDirection = transform.rotation.eulerAngles;
-            shootDirection.y = 90 - shootDirection.x;
-            Vector3 particlesDirection = new Vector3(-90 + shootDirection.x, 90, 0);
-            GameObject particlesClon = Instantiate(particles, bulletSpawner.position, Quaternion.Euler(particlesDirection), transform);
-            tempRB.velocity = shootDirection.normalized * GameManager.instance._bulletSpeed;
-            GameManager.instance._bulletSpeed = 0;
-            blocking = true;
-            
+            if (GameManager.instance.canShoot)
+            {
+                GameManager.instance.canShoot = false;
+                AudioManager.instance.PlayShoot();
+
+                GameObject temp = Instantiate(bulletPrefab, bulletSpawner.position, transform.rotation);
+                Rigidbody tempRB = temp.GetComponent<Rigidbody>();
+                CameraFollow.target = temp;
+
+                Vector3 shootDirection = transform.rotation.eulerAngles;
+                shootDirection.y = 90 - shootDirection.x;
+                Vector3 particlesDirection = new Vector3(-90 + shootDirection.x, 90, 0);
+                GameObject particlesClon = Instantiate(particles, bulletSpawner.position, Quaternion.Euler(particlesDirection), transform);
+                tempRB.velocity = shootDirection.normalized * GameManager.instance._bulletSpeed;
+                GameManager.instance._bulletSpeed = 0;
+                blocking = true;
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         cam.returnCannon = true;
-        Destroy(gameObject, 0.5f);
+        Destroy(gameObject, 0.2f);
         GameManager.instance._shoots -= 1;
         Instantiate(explotionParticles, transform.position, Quaternion.identity);
         
